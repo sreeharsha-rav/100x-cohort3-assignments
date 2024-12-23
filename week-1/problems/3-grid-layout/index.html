@@ -1,38 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Grid Layout</title>
+        <link rel="stylesheet" href="./index.css" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grid Layout</title>
-    <style>
-        .container {
-            width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 10px;
-        }
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+            .container {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                width: 1200px;
+            }
+            .left {
+                background-color: red;
+            }
+            .right {
+                background-color: blue;
+            }
+        </style>
+    </head>
 
-        .left {
-            background-color: red;
-        }
-
-        .right {
-            background-color: blue;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container">
-        <div class="left">
-            <h1>Left</h1>
+    <body>
+        <div class="container">
+            <div class="left">
+                <h1>left</h1>
+            </div>
+            <div class="right">
+                <h1>right</h1>
+            </div>
         </div>
-        <div class="right">
-            <h1>Right</h1>
-        </div>
-    </div>
-</body>
-
+    </body>
 </html>
