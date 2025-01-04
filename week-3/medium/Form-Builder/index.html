@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form Builder</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="builder-section">
+        <h2>Form Builder</h2>
+        <div class="field-type-section">
+          <h3>Select Field Type</h3>
+          <select class="field-type-select" id="fieldType">
+            <option value="text" selected>Text</option>
+            <option value="checkbox">Checkbox</option>
+            <option value="radio">Radio</option>
+          </select>
+        </div>
+        <div class="field-properties-section">
+          <div class="field-property">
+            <label for="fieldLabel">Field Label</label>
+            <input
+              type="text"
+              class="field-name-input"
+              id="fieldName"
+              placeholder="Enter Field Name"
+            />
+          </div>
+
+          <div
+            class="field-property"
+            id="optionsContainer"
+            style="display: none"
+          >
+            <label>Options:</label>
+            <div class="field-options" id="fieldOptions">
+              <div class="field-option">
+                <input
+                  type="text"
+                  class="option-input"
+                  placeholder="Enter Option Text"
+                />
+                <button class="btn btn-danger" id="removeOption">Remove</button>
+              </div>
+            </div>
+            <button class="btn btn-secondary" id="addOption">Add Option</button>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="addField">Add Field</button>
+      </div>
+      <div class="preview-section">
+        <h2>Form Preview</h2>
+        <form class="form-preview" id="formPreview"></form>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
