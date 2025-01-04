@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon Cards</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="input-section">
+        <h1>Pokémon Cards</h1>
+        <input
+          type="number"
+          id="cardCount"
+          min="1"
+          max="151"
+          placeholder="Count"
+        />
+        <button onclick="fetchPokemon()">Generate Cards</button>
+      </div>
+      <div id="cardsContainer" class="cards-container"></div>
+    </div>
+
+    <script>
+      // Store for keeping track of currently displayed Pokémon
+      let currentPokemons = new Set();
+
+      async function fetchPokemon() {
+        // Get the requested number of cards
+        const count = parseInt(document.getElementById("cardCount").value);
+
+        // Input validation
+        if (!count || count < 1 || count > 151) {
+          alert("Please enter a number between 1 and 151");
+          return;
+        }
+
+        // Clear existing cards
+        const cardsContainer = document.getElementById("cardsContainer");
+        cardsContainer.innerHTML =
+          '<h3 class="loading">Loading Pokémon...</h3>';
+        currentPokemons.clear();
+
+        try {
+          // Generate random, unique Pokémon IDs
+          while (currentPokemons.size < count) {
+            currentPokemons.add(Math.floor(Math.random() * 151) + 1);
+          }
+
+          // Fetch data for each Pokémon
+          const pokemonPromises = Array.from(currentPokemons).map(
+            async (id) => {
+              const response = await fetch(
+                `https://pokeapi.co/api/v2/pokemon/${id}`
+              );
+              return response.json();
+            }
+          );
+
+          // Wait for all Pokémon data to be fetched
+          const pokemonData = await Promise.all(pokemonPromises);
+
+          // Clear loading message and display cards
+          cardsContainer.innerHTML = "";
+          pokemonData.forEach((pokemon) => createPokemonCard(pokemon));
+        } catch (error) {
+          cardsContainer.innerHTML =
+            '<h3 class="loading">Error loading Pokémon. Please try again.</h3>';
+          console.error("Error fetching Pokémon:", error);
+        }
+      }
+
+      function createPokemonCard(pokemon) {
+        const card = document.createElement("div");
+        card.className = "pokemon-card";
+
+        // Create card content with Pokémon data
+        card.innerHTML = `
+          <img src="${pokemon.sprites.front_default}" 
+               alt="${pokemon.name}">
+          <h2>${pokemon.name}</h2>
+          <div class="types">
+              ${pokemon.types
+                .map(
+                  (type) =>
+                    `<span class="type ${type.type.name}">
+                      ${type.type.name}
+                  </span>`
+                )
+                .join("")}
+          </div>
+          <div class="stats">
+              ${pokemon.stats
+                .map(
+                  (stat) =>
+                    `<div class="stat">
+                      ${stat.stat.name}: ${stat.base_stat}
+                  </div>`
+                )
+                .join("")}
+          </div>
+      `;
+
+        document.getElementById("cardsContainer").appendChild(card);
+      }
+    </script>
+  </body>
+</html>

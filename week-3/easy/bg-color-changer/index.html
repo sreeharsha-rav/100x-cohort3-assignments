@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Background Color Changer</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+      }
+      .color-palette {
+        display: flex;
+        gap: 10px;
+        background-color: lightgrey;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="color-palette">
+      <button id="red" style="background-color: red; color: white">Red</button>
+      <button id="green" style="background-color: green; color: white">
+        Green
+      </button>
+      <button id="blue" style="background-color: blue; color: white">
+        Blue
+      </button>
+      <button id="yellow" style="background-color: yellow; color: black">
+        Yellow
+      </button>
+      <button id="cyan" style="background-color: cyan; color: black">
+        Cyan
+      </button>
+      <button id="pink" style="background-color: pink; color: black">
+        Pink
+      </button>
+      <button id="black" style="background-color: black; color: white">
+        Black
+      </button>
+      <button id="default" style="background-color: #f0f0f0; color: black">
+        Default
+      </button>
+    </div>
+    <script>
+      const red = document.getElementById("red");
+      const green = document.getElementById("green");
+      const blue = document.getElementById("blue");
+      const yellow = document.getElementById("yellow");
+      const cyan = document.getElementById("cyan");
+      const pink = document.getElementById("pink");
+      const black = document.getElementById("black");
+      const defaultColor = document.getElementById("default");
+
+      red.addEventListener("click", () => {
+        document.body.style.backgroundColor = "red";
+      });
+
+      green.addEventListener("click", () => {
+        document.body.style.backgroundColor = "green";
+      });
+
+      blue.addEventListener("click", () => {
+        document.body.style.backgroundColor = "blue";
+      });
+
+      yellow.addEventListener("click", () => {
+        document.body.style.backgroundColor = "yellow";
+      });
+
+      cyan.addEventListener("click", () => {
+        document.body.style.backgroundColor = "cyan";
+      });
+
+      pink.addEventListener("click", () => {
+        document.body.style.backgroundColor = "pink";
+      });
+
+      black.addEventListener("click", () => {
+        document.body.style.backgroundColor = "black";
+      });
+
+      defaultColor.addEventListener("click", () => {
+        document.body.style.backgroundColor = "#f0f0f0";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Quiz App</title>
+    <style>
+      /* Modern, clean styling for our quiz app */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f0f2f5;
+      }
+
+      .quiz-container {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        max-width: 600px;
+        width: 90%;
+      }
+
+      .question-number {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .question {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .option:hover {
+        background-color: #f8f9fa;
+      }
+
+      .submit-btn {
+        margin-top: 1.5rem;
+        padding: 0.8rem 1.5rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .submit-btn:hover {
+        background-color: #0056b3;
+      }
+
+      .result {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+        font-size: 1.2rem;
+        color: #333;
+      }
+
+      .reload-btn {
+        margin-left: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+      }
+
+      .reload-btn:hover {
+        background-color: #218838;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container" id="quizContainer">
+      <div class="question-number" id="questionNumber"></div>
+      <div class="question" id="question"></div>
+      <div class="options" id="options">
+        <label class="option">
+          <input type="radio" name="option" value="a" />
+          <span id="optionA"></span>
+        </label>
+        <label class="option">
+          <input type="radio" name="option" value="b" />
+          <span id="optionB"></span>
+        </label>
+        <label class="option">
+          <input type="radio" name="option" value="c" />
+          <span id="optionC"></span>
+        </label>
+        <label class="option">
+          <input type="radio" name="option" value="d" />
+          <span id="optionD"></span>
+        </label>
+      </div>
+      <button class="submit-btn" id="submitBtn">Submit</button>
+      <div class="result" id="result"></div>
+    </div>
+
+    <script src="./data.js"></script>
+  </body>
+</html>
