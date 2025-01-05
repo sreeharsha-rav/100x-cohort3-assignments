@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Taskify</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="section todo-section" id="todo-section">
+        <h2>Todo</h2>
+      </div>
+      <div class="section in-progress-section" id="in-progress-section">
+        <h2>In Progress</h2>
+      </div>
+      <div class="section done-section" id="done-section">
+        <h2>Done</h2>
+      </div>
+    </div>
+    <div class="add-container">
+      <hr />
+      <div class="add-task">
+        <label for="input-task-name">Task Name</label>
+        <input type="text" id="input-task-name" placeholder="Add a task" />
+        <label for="input-task-description">Task Description</label>
+        <textarea
+          id="input-task-description"
+          placeholder="Add a description"
+        ></textarea>
+        <button class="btn btn-secondary" onclick="addNewTask()">
+          Add New
+        </button>
+      </div>
+    </div>
+    <script>
+      // Initial tasks data
+      const tasks = [
+        {
+          name: "Complete project report",
+          description:
+            "Finish the final report for the project and submit it to the manager.",
+          type: "IN PROGRESS",
+        },
+        {
+          name: "Team meeting",
+          description:
+            "Attend the weekly team meeting to discuss project updates.",
+          type: "TODO",
+        },
+        {
+          name: "Code review",
+          description:
+            "Review the code submitted by the team and provide feedback.",
+          type: "DONE",
+        },
+        {
+          name: "Client presentation",
+          description: "Prepare and deliver the presentation to the client.",
+          type: "TODO",
+        },
+        {
+          name: "Update documentation",
+          description:
+            "Update the project documentation with the latest changes.",
+          type: "IN PROGRESS",
+        },
+      ];
+
+      // function to create a task element
+      function createTaskElement(task) {
+        const taskDiv = document.createElement("div");
+        taskDiv.className = "task";
+        taskDiv.draggable = TransformStreamDefaultController;
+
+        const taskTitleDiv = document.createElement("div");
+        taskTitleDiv.className = "task-title";
+
+        const taskName = document.createElement("h3");
+        taskName.textContent = task.name;
+
+        const taskActionsDiv = document.createElement("div");
+        taskActionsDiv.className = "task-actions";
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "X";
+        deleteBtn.addEventListener("click", () => {
+          taskDiv.remove();
+          // Remove task from tasks array
+          const index = tasks.findIndex((t) => t.name === task.name);
+          if (index > -1) tasks.splice(index, 1);
+        });
+
+        // add task class style when it is dragging
+        taskDiv.addEventListener("dragstart", (e) => {
+          taskDiv.classList.add("dragging");
+          e.dataTransfer.setData("text/plain", task.name); // add task name to draggable event
+        });
+
+        // remove task class style when it is not dragging
+        taskDiv.addEventListener("dragend", () => {
+          taskDiv.classList.remove("dragging");
+        });
+
+        taskActionsDiv.appendChild(deleteBtn);
+        taskTitleDiv.appendChild(taskName);
+        taskTitleDiv.appendChild(taskActionsDiv);
+
+        const taskDescription = document.createElement("p");
+        taskDescription.className = "task-description";
+        taskDescription.textContent = task.description;
+
+        taskDiv.appendChild(taskTitleDiv);
+        taskDiv.appendChild(taskDescription);
+
+        return taskDiv;
+      }
+
+      // function to render all tasks
+      function renderTasks() {
+        const todoSection = document.getElementById("todo-section");
+        const inProgressSection = document.getElementById(
+          "in-progress-section"
+        );
+        const doneSection = document.getElementById("done-section");
+
+        // clear existing tasks
+        todoSection.innerHTML = "<h2>Todo</h2>";
+        inProgressSection.innerHTML = "<h2>In Progress</h2>";
+        doneSection.innerHTML = "<h2>Done</h2>";
+
+        tasks.forEach((task) => {
+          const taskElement = createTaskElement(task);
+          if (task.type === "TODO") {
+            todoSection.appendChild(taskElement);
+          } else if (task.type === "IN PROGRESS") {
+            inProgressSection.appendChild(taskElement);
+          } else if (task.type === "DONE") {
+            doneSection.appendChild(taskElement);
+          }
+        });
+      }
+
+      // function to add a new task
+      function addNewTask() {
+        const taskName = document.getElementById("input-task-name").value;
+        const taskDescription = document.getElementById(
+          "input-task-description"
+        ).value;
+
+        if (!taskName.trim()) {
+          alert("Please enter a task name");
+          return;
+        }
+
+        const newTask = {
+          name: taskName,
+          description: taskDescription,
+          type: "TODO",
+        };
+
+        tasks.push(newTask);
+        renderTasks();
+
+        // clear input fields
+        document.getElementById("taskName").value = "";
+        document.getElementById("input-task-description").value = "";
+      }
+
+      // set up drag and drop for sections
+      const sections = document.querySelectorAll(".section");
+      sections.forEach((section) => {
+        // add section class style whenevr a drag element is over section
+        section.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          section.classList.add("drag-over");
+        });
+
+        // remove section class style when a drag element is not over section
+        section.addEventListener("dragleave", (e) => {
+          section.classList.remove("drag-over");
+        });
+
+        // remove section class style when the dragged task is dropped
+        section.addEventListener("drop", (e) => {
+          e.preventDefault();
+          section.classList.remove("drag-over");
+
+          // get task name from draggable task event
+          const taskName = e.dataTransfer.getData("text/plain");
+          const task = tasks.find((t) => t.name === taskName);
+
+          if (task) {
+            // Update task type based on the section it was dropped in
+            if (section.id === "todo-section") {
+              task.type = "TODO";
+            } else if (section.id === "in-progress-section") {
+              task.type = "IN PROGRESS";
+            } else if (section.id === "done-section") {
+              task.type = "DONE";
+            }
+
+            renderTasks();
+          }
+        });
+      });
+
+      // initial render
+      renderTasks();
+    </script>
+  </body>
+</html>
