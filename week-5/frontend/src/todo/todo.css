@@ -8,6 +8,19 @@ body {
     padding: 0 20px;
 }
 
+/* Page title styling */
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 /* Input container styling */
 .input-container {
     display: flex;
@@ -18,17 +31,25 @@ body {
 /* Input field styling */
 #todoInput {
     flex-grow: 1;
-    padding: 8px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     font-size: 16px;
 }
 
 /* Add button styling */
 #addButton {
-    padding: 8px 16px;
+    padding: 12px;
     background-color: #4caf50;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+}
+
+#addButton:hover {
+    background-color: #45a049;
 }
 
 /* Todo item styling */
@@ -46,8 +67,13 @@ body {
     background-color: #ff4444;
     color: white;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
     margin-left: auto;
+}
+
+.delete-btn:hover {
+    background-color: #ff3333;
 }
 
 /* Completed todo item styling */
