@@ -14,8 +14,10 @@ function App() {
   return (
     <div className="min-h-screen bg-base-200">
       <Header />
-      <div className="container mx-auto px-4 py-8 space-y-8">
+      <div className="container mx-auto max-w-lg px-4 py-8 space-y-8">
         <AdoptionForm onSubmit={handleSubmit} />
+      </div>
+      <div className="container mx-auto px-4 py-8">
         <ApplicationsTable applications={applications} />
       </div>
     </div>
